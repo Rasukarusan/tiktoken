@@ -4,7 +4,10 @@ GPTでトークン数を計算
 
 https://github.com/openai/tiktoken
 
-## 🛠️Setup
+## 🛠️Mac Setup
+
+You can skip!
+
 ```sh
 pyenv install 3.12.0
 pyenv global 3.12.0
@@ -12,22 +15,30 @@ pip install pipenv
 pipenv install fastapi
 ```
 
+## Setup
+
+```sh
+pipenv install
+```
+
 ## 🚀Run
 
 ```sh
-uvicorn main:app --reload
+pipenv run dev
 ```
 
-## 📍API
+## 📍API Endpoints
 
-body
+`/token`
+
+Request
 ```json
 {
     "text": string
 }
 ```
 
-response
+Response
 ```json
 {
     "token": number
@@ -35,9 +46,9 @@ response
 }
 ```
 
-example
+Example
 ```sh
-curl -XPOST http://localhost:8080 -d '{"text": "こんにちわ"}'
+curl -XPOST 'http://localhost:8000/token' -d '{"text": "こんにちわ"}'
 
 #
 # {
