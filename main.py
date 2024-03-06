@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import tiktoken
+import urllib.parse
 
 app = FastAPI()
 
@@ -27,7 +28,7 @@ class PostTokenResponse(BaseModel):
 
 @app.get("/token/{text}")
 def token(text: str) -> PostTokenResponse:
-    return get_token(text)
+    return get_token(urllib.parse.unquote(text))
 
 @app.post("/token")
 def token(req: PostTokenRequest) -> PostTokenResponse:
