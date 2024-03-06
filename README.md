@@ -29,7 +29,9 @@ pipenv run dev
 
 ## 📍API Endpoints
 
-`/token`
+https://tiktoken-ten.vercel.app/docs
+
+`POST /token`
 
 Request
 ```json
