@@ -1,8 +1,6 @@
 # Tiktoken
 
-GPTでトークン数を計算
-
-https://github.com/openai/tiktoken
+[tiktoken](https://github.com/openai/tiktoken)でトークン数とトークン分割された文字配列を取得
 
 ## 🛠️Mac Setup
 
@@ -33,29 +31,16 @@ https://tiktoken-ten.vercel.app/docs
 
 `POST /token`
 
-Request
-```json
-{
-    "text": string
-}
-```
-
-Response
-```json
-{
-    "token": number
-    "cost": number
-}
-```
-
 Example
-```sh
-curl -XPOST 'http://localhost:8000/token' -d '{"text": "こんにちわ"}'
 
-#
+```sh
+curl -sXPOST 'http://localhost:8000/token' -d '{"text": "こんにちわ"}' -H 'Content-Type:application/json' | jq
 # {
-#     "token": 14,
-#     "cost": 0.0001
+#   "token": 3,
+#   "token_text": [
+#     "こんに",
+#     "ち",
+#     "わ"
+#   ]
 # }
-#
 ```
