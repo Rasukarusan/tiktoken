@@ -2,7 +2,7 @@
 
 [tiktoken](https://github.com/openai/tiktoken)でトークン数とトークン分割された文字配列を取得
 
-## 🛠️Mac Setup
+## ⚙️ Mac Setup
 
 You can skip!
 
@@ -13,19 +13,19 @@ pip install pipenv
 pipenv install fastapi
 ```
 
-## Setup
+## 🛠️ Setup
 
 ```sh
 pipenv install
 ```
 
-## 🚀Run
+## 🚀 Run
 
 ```sh
 pipenv run dev
 ```
 
-## 📍API Endpoints
+## 📍 API Endpoints
 
 https://tiktoken-ten.vercel.app/docs
 
