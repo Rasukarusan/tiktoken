@@ -2,29 +2,39 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import tiktoken
 import urllib.parse
+from typing import List
 
 app = FastAPI()
 
-# トークン数取得
+# トークン分割後のバイト文字列を、分割されたまま復元して返す
+# ex.) [b'\xe3\x81\x93\xe3\x82\x93\xe3\x81\xab', b'\xe5\xa4', b'\x9c'] -> ["こんに", "夜"]
+def decodeByteStrings(byte_strings) -> List[str]:
+    temp_byte = b""
+    result = []
+    for b in byte_strings:
+        try:
+            temp_byte += b
+            decode_str = temp_byte.decode()
+            temp_byte = b""
+            result.append(decode_str)
+        except:
+            pass
+    return result
+
+# トークン数とトークン分割文字列を取得
 def get_token(text):
-    # @see https://platform.openai.com/tokenizer
-    # @see https://zenn.dev/microsoft/articles/3438cf410cc0b5
     enc = tiktoken.get_encoding("cl100k_base")
     tokens = enc.encode(text)
-    # 2024年3月6日現在 @see https://openai.com/pricing
-    inputCost = 0.00001 # 1トークンあたりにかかるドル
-    print(text)
-    print(len(tokens))
-    print(tokens)
-    return {"token": len(tokens), "cost": f'{inputCost * len(tokens):.2f}', "version": "2024-03-06"}
+    bs = enc.decode_tokens_bytes(tokens)
+    result = decodeByteStrings(bs)
+    return {"token": len(tokens), "token_text": result}
 
 
 class PostTokenRequest(BaseModel):
     text: str
 class PostTokenResponse(BaseModel):
     token: int
-    cost: float
-    version: str
+    token_text: List[str]
 
 @app.get("/token/{text}")
 def token(text: str) -> PostTokenResponse:
