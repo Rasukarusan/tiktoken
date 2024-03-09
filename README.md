@@ -10,7 +10,6 @@ You can skip!
 pyenv install 3.12.0
 pyenv global 3.12.0
 pip install pipenv
-pipenv install fastapi
 ```
 
 ## 🛠️ Setup
